@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+DIFF="git diff --cached";
+if [ -n "$CI_CHECK" ]; then
+    DIFF="git diff origin/master";
+fi
+
+
+$DIFF -- '*py' | flake8 --diff

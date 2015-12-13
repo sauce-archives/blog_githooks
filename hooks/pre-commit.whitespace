@@ -1,0 +1,23 @@
+#!/bin/sh
+
+DIFF="git diff --cached";
+if [ -n "$CI_CHECK" ]; then
+    DIFF="git diff origin/master";
+fi
+
+
+newline_at_eof() {
+    FILES=$(
+        for F in $($DIFF --name-only --diff-filter=ACMR); do
+            test "$($DIFF $F 2>/dev/null | tail -1)" = "\ No newline at end of file" && echo $F;
+        done);
+
+    for F in $FILES; do
+        echo "${F}: No newline at end of file";
+    done
+
+    test -z "$FILES" || exit 5;
+}
+
+newline_at_eof;
+exec $DIFF --check;

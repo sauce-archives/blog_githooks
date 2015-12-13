@@ -1,0 +1,14 @@
+language: python
+branches:
+  only:
+    - master
+python:
+  - "3.5"
+install: "pip install flake8"
+script:
+  - "tests/qa"
+  - "echo OTHER_TESTS_HERE"
+notifications:
+  email:
+    on_success: change
+    on_failure: change

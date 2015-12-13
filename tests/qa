@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CI_CHECK=1 hooks/pre-commit
+
+# more tests ?!
